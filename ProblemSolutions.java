@@ -74,11 +74,11 @@ class ProblemSolutions {
                 minHeap.poll();
             }
         }
-        int result = 0;
-        while (!minHeap.isEmpty()) {
-            result = minHeap.poll();
-        }
-        return result;
+        return minHeap.peek();
+        // while (minHeap.size() > 1) {
+        // minHeap.poll();
+        // }
+        // return minHeap.poll();
 
         // return 0;
     }
