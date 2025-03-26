@@ -2,6 +2,8 @@
 /******************************************************************
  *
  *   CEPHER ONANO / COMP 400C - 002
+ * 
+ * Last modified 3/26/2025
  *
  *   This java file contains the problem solutions of isSubSet, findKthLargest,
  *   and sort2Arrays methods. You should utilize the Java Collection Framework for
@@ -34,8 +36,19 @@ class ProblemSolutions {
     public boolean isSubset(int list1[], int list2[]) {
 
         // ADD YOU CODE HERE -- DON'T FORGET TO ADD YOR NAME AT TOP OF FILE
+        Set<Integer> set = new HashSet<>();
+        for (int num : list1) {
+            set.add(num);
+        }
+        boolean isSubset = true;
+        for (int num : list2) {
+            if (!set.contains(num)) {
+                isSubset = false;
+            }
+        }
+        return isSubset;
 
-        return false;
+        // return false;
     }
 
     /**
