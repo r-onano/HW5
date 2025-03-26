@@ -67,8 +67,20 @@ class ProblemSolutions {
     public int findKthLargest(int[] array, int k) {
 
         // ADD YOUR CODE HERE
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+        for (int num : array) {
+            minHeap.add(num);
+            if (minHeap.size() > k) {
+                minHeap.poll();
+            }
+        }
+        int result = 0;
+        while (!minHeap.isEmpty()) {
+            result = minHeap.poll();
+        }
+        return result;
 
-        return 0;
+        // return 0;
     }
 
     /**
@@ -87,8 +99,17 @@ class ProblemSolutions {
     public int[] sort2Arrays(int[] array1, int[] array2) {
 
         // ADD YOU CODE HERE
+        List<Integer> mergedList = new ArrayList<>();
+        for (int num : array1) {
+            mergedList.add(num);
+        }
+        for (int num : array2) {
+            mergedList.add(num);
+        }
+        Collections.sort(mergedList);
+        return mergedList.stream().mapToInt(Integer::intValue).toArray();
 
-        return null;
+        // return null;
     }
 
 }
