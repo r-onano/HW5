@@ -224,14 +224,22 @@ class BloomFilter {
         // of type BitSet (Java class BitSet). See Oracle documentation for
         // this class on available methods. You can also see how method 'add'
         // in this class uses the object.
+
+        // Making the assumption the string is present as default.
         boolean result = true;
+
+        // Loop through all functions used for the Bloom filter.
         for (int n = 0; n < noHashes; n++) {
+            // Compute the hash code for given string
             long hc = hashCode(s, n);
+            // Get the bit postion in the bit array
             int bitNumber = (int) (hc) & this.hashMask;
+            // If bits in not in set, then the string is not in the set
             if (!data.get(bitNumber)) {
                 result = false;
             }
         }
+        // Return whether string is in the Bloom filter.
         return result;
         // return false;
     }

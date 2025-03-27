@@ -36,16 +36,22 @@ class ProblemSolutions {
     public boolean isSubset(int list1[], int list2[]) {
 
         // ADD YOU CODE HERE -- DON'T FORGET TO ADD YOR NAME AT TOP OF FILE
+        // Create a HashSet to store elements of list
         Set<Integer> set = new HashSet<>();
+        // Add each element of list 1 to the set
         for (int num : list1) {
             set.add(num);
         }
+        // Assume list2 is a subset of list1
         boolean isSubset = true;
+        // Check if each elelemt in list2 is present in the set
         for (int num : list2) {
+            // If any element is missing , then set is set to false.
             if (!set.contains(num)) {
                 isSubset = false;
             }
         }
+        // return is if list2 is a subset of list1
         return isSubset;
 
         // return false;
@@ -67,18 +73,19 @@ class ProblemSolutions {
     public int findKthLargest(int[] array, int k) {
 
         // ADD YOUR CODE HERE
+        // Start by creating a minimum heap
         PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+        // Loop through each element in the array
         for (int num : array) {
+            // Add number to the heap
             minHeap.add(num);
+            // If heap size exceeds k, rmeove the smallest element.
             if (minHeap.size() > k) {
                 minHeap.poll();
             }
         }
+        // the top element is k largest
         return minHeap.peek();
-        // while (minHeap.size() > 1) {
-        // minHeap.poll();
-        // }
-        // return minHeap.poll();
 
         // return 0;
     }
@@ -99,14 +106,20 @@ class ProblemSolutions {
     public int[] sort2Arrays(int[] array1, int[] array2) {
 
         // ADD YOU CODE HERE
+        // First create a list to hold all the elelemts from both arrays
         List<Integer> mergedList = new ArrayList<>();
+        // Add elements from the first array to the list.
         for (int num : array1) {
             mergedList.add(num);
         }
+        // Next add all the elements from the second array to the list.
         for (int num : array2) {
             mergedList.add(num);
         }
+        // Sort the merged list in ascending order.
         Collections.sort(mergedList);
+
+        // Convert sorted list back to an array.
         return mergedList.stream().mapToInt(Integer::intValue).toArray();
 
         // return null;

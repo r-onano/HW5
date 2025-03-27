@@ -257,8 +257,51 @@ public class CuckooHash<K, V> {
 		// ADD YOUR CODE HERE - DO NOT FORGET TO ADD YOUR NAME AT TOP OF FILE.
 		// Also make sure you read this method's prologue above, it should help
 		// you. Especially the two HINTS in the prologue.
+		// First I'll create a bucket with the givemn key-value pair
+		Bucket<K, V> newBucket = new Bucket<>(key, value);
+		// Compute the first and second hash indexes
+		int pos1 = hash1(key);
+		int pos2 = hash2(key);
+		// boolean to track if insetion is successful
+		boolean inserted = false;
 
-		return;
+		// A check if key-value pair already exists in table to avoid duplicates.
+		if (!(table[pos1] != null && table[pos1].getBucKey().equals(key) && table[pos1].getValue().equals(value)) &&
+				!(table[pos2] != null && table[pos2].getBucKey().equals(key) && table[pos2].getValue().equals(value))) {
+			int attempts = 0;
+
+			// Isnerting new bucket into available slot using cuckoo hashing method.
+			while (attempts < CAPACITY && !inserted) {
+				if (table[pos1] == null) {
+					// Insert new bucket, if position is empty.
+					table[pos1] = newBucket;
+					inserted = true;
+
+				} else {
+					// If the position is take, dispace the existing occupant and store it.
+					Bucket<K, V> displaced = table[pos1];
+					table[pos1] = newBucket;
+					// The displaced bucket is now th new bucket needing an insertion
+					newBucket = displaced;
+
+					// Move the displaced bucket o hash1 or 2 alternate spot.
+					pos1 = (pos1 == hash1(newBucket.getBucKey())) ? hash2(newBucket.getBucKey())
+							: hash1(newBucket.getBucKey());
+				}
+
+				attempts++;
+			}
+
+			// If table is still full after all attempts, rehash and retry the insertion.
+			if (!inserted) {
+				rehash();
+				// Double table size and reinsert existing element then reisert the displaced
+				// bucket.
+				put(newBucket.getBucKey(), newBucket.getValue());
+			}
+		}
+
+		// return;
 	}
 
 	/**
